@@ -2,138 +2,175 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Discover Japan</title>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Best Japan</title>
   <style>
     * {
       box-sizing: border-box;
+      margin: 0;
+      padding: 0;
     }
 
     body {
-      font-family: 'Roboto', sans-serif;
-      background: linear-gradient(to bottom, #f9f9f9, #d0eaff);
-      margin: 0;
-      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fdfdfd;
       color: #333;
     }
 
-    header {
-      background-color: #e60012;
-      color: white;
-      padding: 40px 20px;
-      text-align: center;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 40px;
-    }
-
-    header p {
-      font-size: 18px;
-      margin-top: 10px;
-    }
-
     .section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       padding: 40px 20px;
-      max-width: 900px;
-      margin: auto;
       text-align: center;
     }
 
-    h2 {
-      font-size: 28px;
+    .travel-guide {
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)),
+                  url('https://upload.wikimedia.org/wikipedia/commons/6/6f/Kyoto_-_traditional_house.jpg') no-repeat center center/cover;
+      color: #fff;
+    }
+
+    .travel-guide h1 {
+      font-size: 2.5em;
       margin-bottom: 30px;
+      text-shadow: 2px 2px 5px #000;
     }
 
-    .card {
-      background: white;
-      border-radius: 16px;
-      padding: 20px;
-      margin: 20px auto;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-      max-width: 600px;
-      transition: transform 0.3s ease;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-    }
-
-    .image {
-      width: 100%;
-      max-width: 100%;
+    .location {
+      background-color: rgba(255, 255, 255, 0.1);
+      padding: 15px 20px;
+      margin: 10px 0;
       border-radius: 12px;
-      margin-bottom: 15px;
+      max-width: 400px;
+      width: 100%;
+      backdrop-filter: blur(5px);
     }
 
-    button {
-      background-color: #e60012;
-      color: white;
+    .location h2 {
+      font-size: 1.4em;
+      color: #ffe;
+      margin-bottom: 5px;
+    }
+
+    .location p {
+      font-size: 0.95em;
+      color: #eee;
+    }
+
+    .book-btn {
+      background: #fff;
+      color: #000;
       border: none;
-      padding: 12px 24px;
-      font-size: 18px;
+      padding: 12px 28px;
+      font-size: 1em;
       border-radius: 30px;
+      font-weight: bold;
+      margin-top: 20px;
       cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin-top: 30px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.3s ease;
     }
 
-    button:hover {
-      background-color: #c40010;
-    }
-
-    footer {
-      background-color: #111;
+    .book-btn:hover {
+      background-color: #f04f4f;
       color: white;
-      padding: 15px;
-      text-align: center;
-      font-size: 14px;
-      margin-top: 40px;
     }
 
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 30px;
+    .for-me {
+      background: linear-gradient(to bottom, rgba(255,255,255,0.9), rgba(255,255,255,0.7)),
+                  url('https://upload.wikimedia.org/wikipedia/commons/f/fb/Shirakawa-go_winter_02.jpg') no-repeat center center/cover;
+      color: #333;
+    }
+
+    .for-me h2 {
+      font-size: 2.2em;
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .for-me p {
+      font-size: 1.1em;
+      font-style: italic;
+      color: #555;
+    }
+
+    .best-japan {
+      background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)),
+                  url('https://upload.wikimedia.org/wikipedia/commons/0/0e/Osaka_Castle_02bs3200.jpg') no-repeat center center/cover;
+      color: white;
+    }
+
+    .best-japan h3 {
+      font-size: 1em;
+      letter-spacing: 3px;
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 5px 20px;
+      border-radius: 20px;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .best-japan h1 {
+      font-size: 3em;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .best-japan h2 {
+      font-size: 1.3em;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    @media (max-width: 768px) {
+      .travel-guide h1, .for-me h2, .best-japan h1 {
+        font-size: 2em;
       }
 
-      .section {
-        padding: 20px 10px;
-      }
-
-      .card {
-        padding: 15px;
+      .location {
+        max-width: 90%;
       }
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <h1>🇯🇵 Visit Japan!</h1>
-    <p>Where tradition meets technology.</p>
-  </header>
+  <!-- JAPAN TRAVEL GUIDE -->
+  <section class="section travel-guide">
+    <h1>JAPAN TRAVEL GUIDE</h1>
 
-  <div class="section">
-    <h2>Top Attractions</h2>
-
-    <div class="card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Mount_Fuji_and_Chureito_Pagoda.jpg" alt="Mt. Fuji" class="image">
-      <p><strong>Mount Fuji:</strong> Japan’s most iconic natural wonder.</p>
+    <div class="location">
+      <h2>TOKYO</h2>
+      <p>Tokyo is the capital of Japan and one of the world’s most populous cities, known for its blend of modern skyscrapers and historic temples.</p>
     </div>
 
-    <div class="card">
-      <img src="https://upload.wikimedia.org/wikipedia/commons/7/7d/Fushimi_Inari_Taisha_Romon.jpg" alt="Fushimi Shrine" class="image">
-      <p><strong>Fushimi Inari Shrine:</strong> Walk through thousands of red torii gates in Kyoto.</p>
+    <div class="location">
+      <h2>HOKKAIDO</h2>
+      <p>Hokkaido is Japan’s northernmost island, famous for its mountains, hot springs, seafood, and snow festivals.</p>
     </div>
 
-    <button onclick="alert('Japan awaits you! 🌸')">Book Now</button>
-  </div>
+    <div class="location">
+      <h2>KAWAGUCHIKO</h2>
+      <p>A scenic lake near Mount Fuji, popular for nature lovers, hot springs, museums, and cherry blossoms.</p>
+    </div>
 
-  <footer>
-    © 2025 Japan Travel Brochure | Made on mobile with Acode 💻📱
-  </footer>
+    <button class="book-btn">BOOK NOW</button>
+  </section>
+
+  <!-- FOR ME SECTION -->
+  <section class="section for-me">
+    <h2>FOR ME</h2>
+    <p>I LOVE JAPAN WOOOOOOOO</p>
+  </section>
+
+  <!-- THE BEST JAPAN -->
+  <section class="section best-japan">
+    <h3>TRAVEL</h3>
+    <h1>THE BEST JAPAN</h1>
+    <h2>TOUR</h2>
+  </section>
 
 </body>
 </html>
