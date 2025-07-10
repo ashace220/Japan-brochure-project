@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The Best Japan</title>
   <style>
     * {
@@ -124,6 +124,60 @@
       letter-spacing: 1px;
     }
 
+    /* Custom Popup */
+    .popup-overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .popup-box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      animation: popIn 0.4s ease-out;
+    }
+
+    .popup-box h2 {
+      font-size: 1.5em;
+      margin-bottom: 10px;
+      color: #f04f4f;
+    }
+
+    .popup-box p {
+      font-size: 1.2em;
+      color: #333;
+    }
+
+    .close-btn {
+      margin-top: 15px;
+      background-color: #f04f4f;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    @keyframes popIn {
+      0% {
+        transform: scale(0.5);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
     @media (max-width: 768px) {
       .travel-guide h1, .for-me h2, .best-japan h1 {
         font-size: 2em;
@@ -131,6 +185,10 @@
 
       .location {
         max-width: 90%;
+      }
+
+      .popup-box {
+        width: 80%;
       }
     }
   </style>
@@ -156,7 +214,7 @@
       <p>A scenic lake near Mount Fuji, popular for nature lovers, hot springs, museums, and cherry blossoms.</p>
     </div>
 
-    <button class="book-btn">BOOK NOW</button>
+    <button class="book-btn" onclick="showPopup()">BOOK NOW</button>
   </section>
 
   <!-- FOR ME SECTION -->
@@ -171,6 +229,36 @@
     <h1>THE BEST JAPAN</h1>
     <h2>TOUR</h2>
   </section>
+
+  <!-- CUSTOM POPUP -->
+  <div class="popup-overlay" id="popup">
+    <div class="popup-box">
+      <h2>✨ Surprise!</h2>
+      <p>pogi ni sir jayson 😝</p>
+      <button class="close-btn" onclick="hidePopup()">OKAY YAN NA</button>
+    </div>
+  </div>
+
+  <!-- Confetti Script -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <!-- Button Script -->
+  <script>
+    function showPopup() {
+      document.getElementById('popup').style.display = 'flex';
+
+      // 🎉 Confetti burst
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 }
+      });
+    }
+
+    function hidePopup() {
+      document.getElementById('popup').style.display = 'none';
+    }
+  </script>
 
 </body>
 </html>
