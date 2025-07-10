@@ -5,25 +5,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>The Best Japan</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
 
     body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #fdfdfd;
       color: #333;
+      line-height: 1.6;
     }
 
+    /* Loader */
+    .loader-wrapper {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 99999;
+    }
+
+    .loader {
+      border: 8px solid #eee;
+      border-top: 8px solid #f04f4f;
+      border-radius: 50%;
+      width: 60px; height: 60px;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin { 100% { transform: rotate(360deg); } }
+
+    /* Navbar */
+    .navbar {
+      position: sticky;
+      top: 0;
+      background: white;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 1000;
+    }
+
+    .navbar ul {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      list-style: none;
+      padding: 15px 0;
+    }
+
+    .navbar a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    .navbar a:hover {
+      color: #f04f4f;
+    }
+
+    /* Sections */
     .section {
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      padding: 40px 20px;
+      padding: 60px 20px;
       text-align: center;
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.6s ease;
+    }
+
+    .section.visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     .travel-guide {
@@ -33,49 +91,75 @@
     }
 
     .travel-guide h1 {
-      font-size: 2.5em;
-      margin-bottom: 30px;
-      text-shadow: 2px 2px 5px #000;
+      font-size: 3em;
+      margin-bottom: 40px;
+      text-shadow: 2px 2px 6px #000;
+    }
+
+    .location-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
     }
 
     .location {
       background-color: rgba(255, 255, 255, 0.1);
-      padding: 15px 20px;
-      margin: 10px 0;
-      border-radius: 12px;
-      max-width: 400px;
+      padding: 20px;
+      border-radius: 14px;
+      max-width: 350px;
       width: 100%;
       backdrop-filter: blur(5px);
+      transition: transform 0.3s ease;
+      cursor: pointer;
+    }
+
+    .location:hover {
+      transform: scale(1.03);
     }
 
     .location h2 {
-      font-size: 1.4em;
+      font-size: 1.5em;
       color: #ffe;
-      margin-bottom: 5px;
+      margin-bottom: 8px;
     }
 
     .location p {
-      font-size: 0.95em;
+      font-size: 1em;
       color: #eee;
+    }
+
+    .more-info {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease;
+      color: #ddd;
+      font-size: 0.9em;
+      margin-top: 10px;
+    }
+
+    .location.active .more-info {
+      max-height: 300px;
     }
 
     .book-btn {
       background: #fff;
       color: #000;
       border: none;
-      padding: 12px 28px;
-      font-size: 1em;
-      border-radius: 30px;
+      padding: 14px 32px;
+      font-size: 1.1em;
+      border-radius: 40px;
       font-weight: bold;
-      margin-top: 20px;
+      margin-top: 30px;
       cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.25);
       transition: all 0.3s ease;
     }
 
     .book-btn:hover {
       background-color: #f04f4f;
       color: white;
+      transform: scale(1.05);
     }
 
     .for-me {
@@ -85,15 +169,15 @@
     }
 
     .for-me h2 {
-      font-size: 2.2em;
-      margin-bottom: 10px;
-      font-weight: 600;
+      font-size: 2.4em;
+      margin-bottom: 15px;
+      font-weight: 700;
     }
 
     .for-me p {
-      font-size: 1.1em;
+      font-size: 1.2em;
       font-style: italic;
-      color: #555;
+      color: #444;
     }
 
     .best-japan {
@@ -106,25 +190,27 @@
       font-size: 1em;
       letter-spacing: 3px;
       background-color: rgba(255, 255, 255, 0.2);
-      padding: 5px 20px;
+      padding: 6px 24px;
       border-radius: 20px;
       display: inline-block;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
     }
 
     .best-japan h1 {
-      font-size: 3em;
+      font-size: 3.5em;
       font-weight: 800;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      background: linear-gradient(to right, #ff5858, #f09819);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .best-japan h2 {
-      font-size: 1.3em;
+      font-size: 1.4em;
       font-weight: 300;
       letter-spacing: 1px;
     }
 
-    /* Custom Popup */
     .popup-overlay {
       position: fixed;
       top: 0; left: 0;
@@ -138,16 +224,18 @@
 
     .popup-box {
       background: #fff;
-      padding: 30px;
-      border-radius: 20px;
+      padding: 40px;
+      border-radius: 25px;
       text-align: center;
-      box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
       animation: popIn 0.4s ease-out;
+      max-width: 90%;
+      width: 350px;
     }
 
     .popup-box h2 {
-      font-size: 1.5em;
-      margin-bottom: 10px;
+      font-size: 1.7em;
+      margin-bottom: 15px;
       color: #f04f4f;
     }
 
@@ -157,80 +245,112 @@
     }
 
     .close-btn {
-      margin-top: 15px;
+      margin-top: 20px;
       background-color: #f04f4f;
       color: white;
       border: none;
-      padding: 10px 20px;
-      border-radius: 25px;
+      padding: 12px 25px;
+      border-radius: 30px;
       font-weight: bold;
       cursor: pointer;
     }
 
     @keyframes popIn {
-      0% {
-        transform: scale(0.5);
-        opacity: 0;
-      }
-      100% {
-        transform: scale(1);
-        opacity: 1;
-      }
+      0% { transform: scale(0.5); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    #toTop {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: #f04f4f;
+      color: white;
+      border: none;
+      padding: 12px 18px;
+      font-size: 1.2em;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      z-index: 1000;
     }
 
     @media (max-width: 768px) {
       .travel-guide h1, .for-me h2, .best-japan h1 {
-        font-size: 2em;
+        font-size: 2.3em;
       }
 
-      .location {
-        max-width: 90%;
+      .book-btn {
+        padding: 12px 24px;
+        font-size: 1em;
       }
 
       .popup-box {
-        width: 80%;
+        padding: 30px;
       }
     }
   </style>
 </head>
 <body>
 
+  <!-- Loader -->
+  <div class="loader-wrapper">
+    <div class="loader"></div>
+  </div>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <ul>
+      <li><a href="#guide">Travel Guide</a></li>
+      <li><a href="#for-me">For Me</a></li>
+      <li><a href="#best">Best Japan</a></li>
+    </ul>
+  </nav>
+
   <!-- JAPAN TRAVEL GUIDE -->
-  <section class="section travel-guide">
+  <section id="guide" class="section travel-guide">
     <h1>JAPAN TRAVEL GUIDE</h1>
-
-    <div class="location">
-      <h2>TOKYO</h2>
-      <p>Tokyo is the capital of Japan and one of the world’s most populous cities, known for its blend of modern skyscrapers and historic temples.</p>
+    <div class="location-wrapper">
+      <div class="location" onclick="toggleInfo(this)">
+        <h2>TOKYO</h2>
+        <p>Modern city life with ancient temples, sushi trains, and nightlife.</p>
+        <div class="more-info">
+          <p>Visit Shibuya Crossing, Tokyo Tower, and Akihabara. Ride bullet trains and eat ramen in cozy shops.</p>
+        </div>
+      </div>
+      <div class="location" onclick="toggleInfo(this)">
+        <h2>HOKKAIDO</h2>
+        <p>Snowy mountains, relaxing hot springs, and delicious seafood.</p>
+        <div class="more-info">
+          <p>Perfect for skiing in Niseko, soaking in onsens, and eating fresh crab or miso ramen in Sapporo.</p>
+        </div>
+      </div>
+      <div class="location" onclick="toggleInfo(this)">
+        <h2>KAWAGUCHIKO</h2>
+        <p>Calm lakeside views with Mount Fuji nearby.</p>
+        <div class="more-info">
+          <p>Great for photography, boat rides, and viewing cherry blossoms with Mount Fuji perfectly framed.</p>
+        </div>
+      </div>
     </div>
-
-    <div class="location">
-      <h2>HOKKAIDO</h2>
-      <p>Hokkaido is Japan’s northernmost island, famous for its mountains, hot springs, seafood, and snow festivals.</p>
-    </div>
-
-    <div class="location">
-      <h2>KAWAGUCHIKO</h2>
-      <p>A scenic lake near Mount Fuji, popular for nature lovers, hot springs, museums, and cherry blossoms.</p>
-    </div>
-
     <button class="book-btn" onclick="showPopup()">BOOK NOW</button>
   </section>
 
   <!-- FOR ME SECTION -->
-  <section class="section for-me">
+  <section id="for-me" class="section for-me">
     <h2>FOR ME</h2>
-    <p>I LOVE JAPAN WOOOOOOOO</p>
+    <p>I LOVE JAPAN WOOOOOOOO 😍🍜⛩️</p>
   </section>
 
   <!-- THE BEST JAPAN -->
-  <section class="section best-japan">
+  <section id="best" class="section best-japan">
     <h3>TRAVEL</h3>
     <h1>THE BEST JAPAN</h1>
     <h2>TOUR</h2>
   </section>
 
-  <!-- CUSTOM POPUP -->
+  <!-- POPUP -->
   <div class="popup-overlay" id="popup">
     <div class="popup-box">
       <h2>✨ Surprise!</h2>
@@ -239,26 +359,58 @@
     </div>
   </div>
 
+  <!-- Back to Top Button -->
+  <button id="toTop" onclick="scrollToTop()">↑</button>
+
   <!-- Confetti Script -->
   <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-  <!-- Button Script -->
   <script>
+    // Loader
+    window.addEventListener('load', () => {
+      document.querySelector('.loader-wrapper').style.display = 'none';
+    });
+
+    // Popup
     function showPopup() {
       document.getElementById('popup').style.display = 'flex';
-
-      // 🎉 Confetti burst
-      confetti({
-        particleCount: 150,
-        spread: 70,
-        origin: { y: 0.6 }
-      });
+      confetti({ particleCount: 200, spread: 80, origin: { y: 0.6 } });
     }
 
     function hidePopup() {
       document.getElementById('popup').style.display = 'none';
     }
-  </script>
 
+    // Scroll animation
+    const sections = document.querySelectorAll('.section');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    sections.forEach(section => observer.observe(section));
+
+    // Back to top button
+    window.onscroll = () => {
+      const btn = document.getElementById("toTop");
+      if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        btn.style.display = "block";
+      } else {
+        btn.style.display = "none";
+      }
+    };
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Expand location info
+    function toggleInfo(card) {
+      card.classList.toggle('active');
+    }
+  </script>
 </body>
 </html>
